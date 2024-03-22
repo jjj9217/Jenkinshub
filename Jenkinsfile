@@ -96,13 +96,13 @@ pipeline {
             post {
                 success {
                     slackSend(tokenCredentialId: 'slack-token',
-                    channel: '#클라우드엔지니어',
+                    channel: '#젠킨스-경보-테스트',
                     color: 'good',
                     message: '배포성공')
                 }
                 failure {
                     slackSend(tokenCredentialId: 'slack-token',
-                    channel: '#클라우드엔지니어',
+                    channel: '#젠킨스-경보-테스트',
                     color: 'danger',
                     message: '배포실패')
                 }
