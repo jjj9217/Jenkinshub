@@ -6,7 +6,7 @@ pipeline {
     
     environment {
         strDockTag = "${TODAY}_${BUILD_ID}"
-        strDockImg = "choisieun/guestbook:${strDockTag}"
+        strDockImg = "ofmw/guestbook:${strDockTag}"
     }
 
     stages {
