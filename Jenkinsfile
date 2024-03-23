@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git (branch: 'main', url:'https://github.com/mogamjadori/jenkins-guestbook.git')
+                git (branch: 'main', url:'https://github.com/ofmw/jenkins-guestbook.git')
             }
         }
         stage('Build') {
@@ -81,11 +81,11 @@ pipeline {
         stage('SSH guestbook') {
             steps {
                 sshagent(credentials: ['ssh-token']) {
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.225 \
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.15 \
                     docker container rm -f guestbook"
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.225 \
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.15 \
                     docker container run -d -p 8888:80 --name guestbook \
-                    -e MYSQL_IP=10.0.10.225 \
+                    -e MYSQL_IP=10.0.10.15 \
                     -e MYSQL_PORT=3306 \
                     -e MYSQL_USER=root \
                     -e MYSQL_PASSWORD=education \
@@ -96,13 +96,13 @@ pipeline {
             post {
                 success {
                     slackSend(tokenCredentialId: 'slack-token',
-                    channel: '#젠킨스-경보-테스트',
+                    channel: '#cicd-alarm',
                     color: 'good',
                     message: '배포성공')
                 }
                 failure {
                     slackSend(tokenCredentialId: 'slack-token',
-                    channel: '#젠킨스-경보-테스트',
+                    channel: '#cicd-alarm',
                     color: 'danger',
                     message: '배포실패')
                 }
