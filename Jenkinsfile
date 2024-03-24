@@ -81,11 +81,11 @@ pipeline {
         stage('SSH guestbook') {
             steps {
                 sshagent(credentials: ['ssh-token']) {
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.139 \
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.161 \
                     docker container rm -f guestbook"
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.139 \
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.161 \
                     docker container run -d -p 8888:80 --name guestbook \
-                    -e MYSQL_IP=10.0.10.139 \
+                    -e MYSQL_IP=10.0.10.161 \
                     -e MYSQL_PORT=3306 \
                     -e MYSQL_USER=root \
                     -e MYSQL_PASSWORD=education \
