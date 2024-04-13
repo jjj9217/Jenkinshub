@@ -35,32 +35,32 @@ pipeline {
                 }
             }
         }
-        // stage('SonarQube Analysis') {
-        //    steps {
-        //        withSonarQubeEnv('sonarqube-server') {
-        //            sh '''
-        //            ./mvnw sonar:sonar \
-        //                -Dsonar.projectKey=project \
-        //                -Dsonar.host.url=http://192.168.0.203:9000 \
-        //            '''
-        //        }
-        //    }
-        // }
-        // stage('SonarQube Quality Gate') {
-        //    steps {
-        //        timeout(time: 1, unit: 'MINUTES') {
-        //            script {
-        //                def qg = waitForQualityGate()
-        //                if(qg.status != 'OK') {
-        //                    echo "NOT OK Status: ${qg.status}"
-        //                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
-        //                } else {
-        //                    echo "OK Status: ${qg.status}"
-        //                }
-        //            }
-        //        }
-        //    }
-        // }
+        stage('SonarQube Analysis') {
+           steps {
+               withSonarQubeEnv('sonarqube-server') {
+                   sh '''
+                   ./mvnw sonar:sonar \
+                       -Dsonar.projectKey=project \
+                       -Dsonar.host.url=http://192.168.0.203:9000 \
+                   '''
+               }
+           }
+        }
+        stage('SonarQube Quality Gate') {
+           steps {
+               timeout(time: 1, unit: 'MINUTES') {
+                   script {
+                       def qg = waitForQualityGate()
+                       if(qg.status != 'OK') {
+                           echo "NOT OK Status: ${qg.status}"
+                           error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                       } else {
+                           echo "OK Status: ${qg.status}"
+                       }
+                   }
+               }
+           }
+        }
         stage('Docker Image Build') {
             steps {
                 script {
