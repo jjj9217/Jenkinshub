@@ -40,7 +40,7 @@ pipeline {
                withSonarQubeEnv('sonarqube-server') {
                    sh '''
                    ./mvnw sonar:sonar \
-                       -Dsonar.projectKey=project \
+                       -Dsonar.projectKey=guestbook \
                        -Dsonar.host.url=http://192.168.0.203:9000 \
                    '''
                }
