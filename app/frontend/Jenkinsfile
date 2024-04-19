@@ -19,13 +19,15 @@ pipeline {
             steps {
                 nodejs('NodeJS'){
                     sh '''
-                        npm ci && npm run build
+                        npm install --save-dev @babel/plugin-proposal-private-property-in-object
+                        npm ci
+                        CI=false npm run build
                     '''
                 }
             }
             post {
                 success {
-                    archiveArtifacts "target/*.jar"
+                    archiveArtifacts 'build/**/*'
                 }
             }
         }
