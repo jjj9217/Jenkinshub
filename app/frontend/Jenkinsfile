@@ -45,9 +45,10 @@ pipeline {
            steps {
                withSonarQubeEnv('sonarqube-frontend-server') {
                    sh '''
-                   ./mvnw sonar:sonar \
-                       -Dsonar.projectKey=frontent \
-                       -Dsonar.host.url=http://192.168.0.203:9000 \
+                    sonar-scanner \
+                    -Dsonar.projectKey=frontend \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://192.168.0.203:9000 \
                    '''
                }
            }
