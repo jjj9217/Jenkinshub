@@ -6,7 +6,7 @@ pipeline {
     
     environment {
         strDockTag = "${TODAY}_${BUILD_ID}"
-        strDockImg = "ofmw/guestbook:${strDockTag}"
+        strDockImg = "ofmw/backend:${strDockTag}"
     }
 
     stages {
@@ -17,7 +17,10 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "chmod +x ./mvnw; ./mvnw clean package -DskipTests"
+                sh '''
+                    chmod +x ./mvnw
+                    ./mvnw clean package -DskipTests
+                '''
             }
             post {
                 success {
