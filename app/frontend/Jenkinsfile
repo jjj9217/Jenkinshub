@@ -6,13 +6,13 @@ pipeline {
     
     environment {
         strDockTag = "${TODAY}_${BUILD_ID}"
-        strDockImg = "ofmw/frontend:${strDockTag}"
+        strDockImg = "jjj920217/frontend:${strDockTag}"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git (branch: 'main', url:'https://github.com/ofmw/frontend-cloud.git')
+                git (branch: 'main', url:'https://github.com/jjj9217/frontend-cloud.git')
             }
         }
         stage('Build') {
@@ -48,7 +48,7 @@ pipeline {
         //             sonar-scanner \
         //             -Dsonar.projectKey=frontend \
         //             -Dsonar.sources=. \
-        //             -Dsonar.host.url=http://192.168.0.203:9000 \
+        //             -Dsonar.host.url=http://192.168.0.174:9000 \
         //            '''
         //        }
         //    }
@@ -83,20 +83,20 @@ pipeline {
                     }
                 }
             }
-            // post {
-            //     success {
-            //         slackSend(tokenCredentialId: 'slack-token',
-            //         channel: '#cicd-alarm',
-            //         color: 'good',
-            //         message: 'CI 성공')
-            //     }
-            //     failure {
-            //         slackSend(tokenCredentialId: 'slack-token',
-            //         channel: '#cicd-alarm',
-            //         color: 'danger',
-            //         message: 'CI 실패')
-            //     }
-            // }
+            post {
+                success {
+                    slackSend(tokenCredentialId: 'slack-token',
+                    channel: '#cicd-alarm',
+                    color: 'good',
+                    message: 'CI 성공')
+                }
+                failure {
+                    slackSend(tokenCredentialId: 'slack-token',
+                    channel: '#cicd-alarm',
+                    color: 'danger',
+                    message: 'CI 실패')
+                }
+            }
         }
         
     }
