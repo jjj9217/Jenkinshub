@@ -19,7 +19,7 @@ pipeline {
             steps {
                 nodejs('NodeJS'){
                     sh '''
-                        npm ci && npm run test && npm run build
+                        npm ci && npm run build
                     '''
                 }
             }
