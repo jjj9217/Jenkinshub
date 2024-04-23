@@ -19,7 +19,7 @@ pipeline {
             steps {
                 nodejs('NodeJS'){
                     sh '''
-                        npm install --save-dev @babel/plugin-proposal-private-property-in-object
+                        npm install --save-dev @babel/plugin-transform-private-property-in-object
                         npm ci
                         CI=false npm run build
                     '''
