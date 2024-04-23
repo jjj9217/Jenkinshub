@@ -83,20 +83,20 @@ pipeline {
                     }
                 }
             }
-            post {
-                success {
-                    slackSend(tokenCredentialId: 'slack-token',
-                    channel: '#cicd-alarm',
-                    color: 'good',
-                    message: 'CI 성공')
-                }
-                failure {
-                    slackSend(tokenCredentialId: 'slack-token',
-                    channel: '#cicd-alarm',
-                    color: 'danger',
-                    message: 'CI 실패')
-                }
-            }
+            // post {
+            //     success {
+            //         slackSend(tokenCredentialId: 'slack-token',
+            //         channel: '#cicd-alarm',
+            //         color: 'good',
+            //         message: 'CI 성공')
+            //     }
+            //     failure {
+            //         slackSend(tokenCredentialId: 'slack-token',
+            //         channel: '#cicd-alarm',
+            //         color: 'danger',
+            //         message: 'CI 실패')
+            //     }
+            // }
         }
         
     }
